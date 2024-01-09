@@ -36,7 +36,7 @@ namespace WindowsFormsApp1
             while (true)
             {
                 //set the local timezone
-                var localZone = await Task.Run(() => DateTime.Now.ToString("hh:mm:ss"));
+                var localZone = DateTime.Now.ToString("hh:mm:ss");
 
                 // Get time for Washington
                 var easternZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
@@ -45,13 +45,11 @@ namespace WindowsFormsApp1
                 // Get time for Beijing
                 var chinaZone = TimeZoneInfo.FindSystemTimeZoneById("China Standard Time");
                 var beijingTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, chinaZone).ToString("hh:mm:ss");
-                //Start the action after data has been received
-                label7.Invoke(new Action(() =>
-                {
-                    label7.Text = "København \n" + localZone;
-                    label8.Text = "Washington DC \n" + washingtonTime;
-                    label9.Text = "Beijing \n" + beijingTime;
-                }));
+                
+                //apply the data to the labels
+                label7.Text = "København \n" + localZone;
+                label8.Text = "Washington DC \n" + washingtonTime;
+                label9.Text = "Beijing \n" + beijingTime;
                 //wait 1 second, then run again
                 await Task.Delay(1000);
             }
